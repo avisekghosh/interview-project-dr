@@ -1,0 +1,17 @@
+FROM python:3.6
+
+RUN useradd -ms /bin/bash ubuntu
+
+WORKDIR /home/ubuntu
+
+COPY src .
+
+RUN pip install -r r.txt
+
+RUN chown -R ubuntu:ubuntu /home/ubuntu
+
+USER ubuntu
+
+EXPOSE 5000
+
+CMD ["gunicorn", "--worker-class", "gevent", "--workers", "1", "--bind", "0.0.0.0:5000", "--umask", "007", "m1:app"]

@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  m1-service:
+    build:
+      context: .
+      dockerfile: Dockerfile_m1
+    image: m1:1.0.0
+    restart: always
+    networks:
+      m-net:
+          aliases:
+            - m1-net
+
+  m2-service:
+    build:
+      context: .
+      dockerfile: Dockerfile_m2
+    image: m2:1.0.0
+    volumes:
+      - ./db_mount:/home/ubuntu/db_mount
+    depends_on:
+      - m1-service
+    restart: always
+    networks:
+      m-net:
+        aliases:
+          - m2-net
+
+  n1-service:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: n1-service:1.0.0
+    depends_on:
+      - m2-service
+    restart: always
+    networks:
+      - m-net
+    ports:
+      - 81:80
+      - 82:81
+  
+networks:
+    m-net:
+
