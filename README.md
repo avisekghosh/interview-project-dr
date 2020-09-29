@@ -10,8 +10,20 @@ Components
   - gunicorn
   - nginx
 
-### Installation
+## Installation
 Change the API_TOKEN and CHANNEL in `config.py`
+
+Please note you have to give the app the following slack permission 
+
+#### Bot Token scope
+  - chat:write
+  - chat:write.public
+
+#### User Token scope
+  - chat:write
+
+
+
 After cloning use this commands
 
 ```sh
@@ -23,7 +35,7 @@ $ curl --location --request POST 'http://127.0.0.1:81/msg' --header 'Content-Typ
 }'
 ```
 
-### Notes
+## Notes
 
 | Services | Description |
 | ------ | ------ |

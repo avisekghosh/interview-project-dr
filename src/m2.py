@@ -20,8 +20,7 @@ def send_msg_to_slack(msg="HelloWorld", channel_name="#test"):
     except SlackApiError as e:
         assert e.response["ok"] is False
         assert e.response["error"]
-        # print(e)
-        return False
+        raise Exception(str(e.response["error"]))
 
 
 def write_to_db(msg=None):

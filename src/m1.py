@@ -9,7 +9,8 @@ def send_to_m1(msg):
     if r.status_code == 200:
         return True
     else:
-        return False
+        error = r.json().get('error')
+        raise Exception(str(error))
 
 @app.route("/ping")
 def ping():
